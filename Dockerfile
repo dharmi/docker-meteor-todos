@@ -8,8 +8,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         procps \
         && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8080
-
 RUN curl  https://install.meteor.com/ | sh
 RUN meteor create --example todos
 WORKDIR /todos
