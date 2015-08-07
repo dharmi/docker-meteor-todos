@@ -1,9 +1,5 @@
-############################################################
-# Dockerfile to build Nginx Installed Containers
-# Based on Ubuntu
-############################################################
 
-# Set the base image to Ubuntu
+# Set the base image to minimized Ubuntu
 FROM phusion/baseimage
 
 # Update the repository
@@ -30,10 +26,10 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 # EXPOSE 80 3000
 
 # Install Meteor
-#RUN curl  https://install.meteor.com/ | sh
-#RUN meteor create --example todos
-#WORKDIR /todos
+RUN curl  https://install.meteor.com/ | sh
+RUN meteor create --example todos
+WORKDIR /todos
 
 # Run Meteor and Nginx
-# CMD ["/usr/bin/supervisord"]
-CMD service nginx start
+CMD ["/usr/bin/supervisord"]
+
