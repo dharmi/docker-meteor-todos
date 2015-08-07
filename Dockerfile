@@ -16,6 +16,7 @@ ADD nginx.conf /etc/nginx/
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN chmod -R 777 /var/log/supervisor
+RUN chmod -R 777 /etc/supervisor
 
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
