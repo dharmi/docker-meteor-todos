@@ -23,7 +23,7 @@ RUN adduser vcap sudo; exit 0
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Expose ports
-EXPOSE 80 3000
+# EXPOSE 80 3000
 
 # Install Meteor
 RUN curl  https://install.meteor.com/ | sh
