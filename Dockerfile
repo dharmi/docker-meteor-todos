@@ -1,16 +1,31 @@
-FROM google/debian:wheezy
 
-MAINTAINER dharmi <dharmi@gmail.com>
+# Set the base image to minimized Ubuntu
+FROM phusion/baseimage
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
-        procps \
-        && rm -rf /var/lib/apt/lists/*
+# Update the repository
+RUN apt-get update && \
+    apt-get install -y nginx supervisor
 
-EXPOSE 8000
+# Remove the default Nginx configuration file
+RUN rm -v /etc/nginx/nginx.conf
 
+# Copy a configuration file from the current directory
+ADD nginx.conf /etc/nginx/
+
+# Copy supervisord configuration file
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Append "daemon off;" to the beginning of the configuration
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+# Expose ports
+EXPOSE 80 3000
+
+# Install Meteor
 RUN curl  https://install.meteor.com/ | sh
 RUN meteor create --example todos
 WORKDIR /todos
-CMD ["meteor", "--port=8000"]
+
+# Run Meteor and Nginx
+CMD ["/usr/bin/supervisord"]
+
