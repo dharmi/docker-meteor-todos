@@ -15,16 +15,14 @@ ADD nginx.conf /etc/nginx/
 # Copy supervisord configuration file
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN chmod -R 777 /var/log/supervisor
-RUN chmod -R 777 /etc/supervisor
-RUN adduser vcap sudo; exit 0
+#RUN chmod -R 777 /var/log/supervisor
+#RUN chmod -R 777 /etc/supervisor
 
 # Append "daemon off;" to the beginning of the configuration
-# RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Expose ports
-# EXPOSE 80 3000
-EXPOSE 80 8080
+EXPOSE 80 3000
 
 # Install Meteor
 RUN curl  https://install.meteor.com/ | sh
