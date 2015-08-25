@@ -29,9 +29,6 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENV MONGO_URL mongodb://localhost:27017/meteor
 
 
-# Expose ports
-# EXPOSE 80 3000
-
 # Install Meteor
 RUN curl  https://install.meteor.com/ | sh
 RUN meteor create --example todos
